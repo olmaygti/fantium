@@ -1,0 +1,34 @@
+- name: certbot check
+  shell: certbot --version
+  register: cerbot_version
+  ignore_errors: True
+
+- debug:
+    msg: "version! {{ cerbot_version }}"
+
+- block:
+    - name: certbot install
+      snap:
+        name: certbot
+        classic: yes
+        state: present
+
+    - name: curl install
+      apt:
+        name: curl
+        state: present
+
+    - name: pip dowload
+      shell:
+        chdir: /tmp
+        cmd: "curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py"
+
+    - name: pip install
+      shell:
+        chdir: "/tmp"
+        cmd: "python3 get-pip.py"
+
+    - name: route 53 dns plugin
+      pip:
+        name: certbot_dns_route53
+  when: cerbot_version is failed

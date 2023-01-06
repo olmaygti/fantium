@@ -1,0 +1,16 @@
+**/node_modules/
+**/node_modules_all/
+**/bin/
+dist/
+*.zip
+*.tgz
+*.gz
+*.class
+.gradle
+**.env
+**.serverless
+coverage/
+.idea
+**.log
+.vscode
+jsconfig.json

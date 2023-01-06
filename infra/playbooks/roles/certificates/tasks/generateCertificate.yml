@@ -1,0 +1,74 @@
+- name: certificate check
+  stat:
+    path: "{{ ssl_certificate_folder }}"
+  register: certificate_folder
+
+- debug:
+    msg: "certificate DOES NOT EXISTS"
+  when: not certificate_folder.stat.exists
+
+- debug:
+    msg: "certificate EXISTS"
+  when: certificate_folder.stat.exists
+
+- name: generate certificate
+  block:
+    - name: get json temp credentials file
+      shell:
+        cmd: >
+            curl -H "{{ token_header_name }}: `{{ fetch_token_command }}`"  {{ credentials_url }} > {{ aws_credentials_file }}
+
+    - name: extract credentials
+      block:
+        - shell:
+            cmd: >
+              grep -E -o "{{ access_key_id_attr }}.*"  {{ aws_credentials_file }} | sed -r 's/^.*: "(.*)",$/\1/g'
+          register: access_key
+
+        - shell:
+            cmd: >
+              grep -E -o "{{ secret_key_attr }}.*"  {{ aws_credentials_file }} | sed -r 's/^.*: "(.*)",$/\1/g'
+          register: secret_key
+
+    - name: create final credentials file overwriting previous
+      template:
+        src: "../templates/awsCredentials.j2"
+        dest: "{{ aws_credentials_file }}"
+        mode: 0600
+      vars:
+        key_id: "{{ access_key.stdout }}"
+        secret: "{{ secret_key.stdout }}"
+
+    - name: run certbot
+      shell:
+        cmd: >
+          AWS_CONFIG_FILE={{ aws_credentials_file }} && \
+            certbot certonly --non-interactive --dns-route53 --agree-tos \
+              -d {{ root_dns_name }} -d {{ subdomains | product([root_dns_name]) | map('join', '.') | join(' -d ')}} \
+              --email "{{ contact_email }}"
+
+    - name: generate x509 certificate
+      shell:
+        chdir: "{{ ssl_certificate_folder }}"
+        cmd: >
+          openssl pkcs12 -export -in fullchain.pem \
+            -inkey privkey.pem \
+            -passout pass:{{ x509_password }} \
+            -out /home/ubuntu/server.p12
+
+    - name: generate haproxy crt
+      shell:
+        chdir: "{{ ssl_certificate_folder }}"
+        cmd: >
+          cat fullchain.pem  privkey.pem > {{ ssl_cert_file_name }}
+
+    - name: change certificate permissions
+      shell: chown ubuntu:ubuntu /home/ubuntu/server.p12
+
+    - name: remove aws credentials file
+      file:
+        path: "{{ aws_credentials_file }}"
+        state: absent
+
+  when: not certificate_folder.stat.exists
+

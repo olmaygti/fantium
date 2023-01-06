@@ -1,0 +1,11 @@
+all:
+  children:
+    api:
+      gather_facts: no
+      vars:
+        root_dns_name: fantium.olmaygti.com
+        ssl_certificate_folder: "/etc/letsencrypt/live/{{ root_dns_name }}"
+        ssl_cert_file_name: fantium.pem
+      hosts:
+        api01:
+          ansible_host: 34.244.157.70

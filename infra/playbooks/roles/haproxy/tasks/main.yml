@@ -1,0 +1,17 @@
+- name: apt installation
+  apt:
+    name: haproxy
+    state: present
+
+- name: copy the haproxy.cfg file
+  template:
+    src: ../templates/haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+    mode: 0600
+
+# move to handler
+- name: haproxy service restart
+  service:
+    name: haproxy
+    state: restarted
+

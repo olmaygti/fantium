@@ -1,0 +1,20 @@
+- hosts: api
+  become: yes
+  become_user: root
+
+  vars:
+    ansible_ssh_private_key_file: "{{ key }}"
+    ansible_user: ubuntu
+
+  tasks :
+    - name: generate ssl certificate
+      include_role:
+        name: certificates
+
+    - name: haproxy installation
+      include_role:
+        name: haproxy
+
+    - name: java install
+      include_role:
+        name: java

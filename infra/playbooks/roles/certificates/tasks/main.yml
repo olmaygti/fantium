@@ -1,0 +1,5 @@
+- name: install certbot
+  include_tasks: ./certbot.yml
+
+- name: generate ssl certificate
+  include_tasks: ./generateCertificate.yml

@@ -1,0 +1,24 @@
+# EC2 variables
+iam_role: CertBotRole
+iam_host: 169.254.169.254
+
+# IAM credentials config
+aws_credentials_file: /root/awsCredentials
+
+access_key_id_attr: AccessKeyId
+secret_key_attr: SecretAccessKey
+
+token_header_name: "X-aws-ec2-metadata-token"
+token_ttl_header: "X-aws-ec2-metadata-token-ttl-seconds: 21600"
+
+fetch_token_command: 'curl -X PUT {{ token_url }} -H "{{ token_ttl_header }}"'
+
+token_url: "http://{{ iam_host }}/latest/api/token"
+credentials_url: "http://{{ iam_host }}/latest/meta-data/iam/security-credentials/{{ iam_role }}"
+
+subdomains:
+  - api
+
+contact_email: info@olmaygti.com
+
+x509_password: P4s5W0rD?

@@ -1,0 +1,25 @@
+{
+  "name": "fantium-contracts",
+  "version": "0.0.1",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ganache": "sh ./scripts/runGanache.sh"
+  },
+  "author": "@olmaygti",
+  "license": "ISC",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.7.3",
+    "@truffle/hdwallet-provider": "^2.0.13",
+    "truffle": "^5.5.26",
+    "truffle-privatekey-provider": "^1.5.0"
+  },
+  "devDependencies": {
+    "ganache-cli": "^6.12.2",
+    "truffle-flattener": "^1.6.0"
+  }
+}

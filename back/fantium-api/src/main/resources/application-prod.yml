@@ -1,0 +1,7 @@
+micronaut:
+  ssl:
+      enabled: true
+      keyStore:
+          path: file:/home/ubuntu/server.p12
+          password: ${CERTIFICATE_PASSWORD:`P4s5W0rD?`}
+          type: PKCS12

@@ -1,0 +1,28 @@
+- name: dependencies are installed
+  apt:
+    pkg:
+      - curl
+      - zip
+      - unzip
+
+- name: java install
+  become_user: ubuntu
+  block:
+    - name: Check if sdkman is installed
+      shell: test -d ~/.sdkman && echo "yes" || echo "no"
+      register: is_sdkman_installed
+
+    - name: java install
+      block:
+        - debug:
+            msg: installing java_version
+
+        - name: install sdk man
+          shell: curl -s {{ sdk_man_url }} | bash
+
+        - name: install java
+          shell: source ~/.sdkman/bin/sdkman-init.sh && sdk install java {{ target_java_version }}
+          args:
+            executable: /bin/bash
+
+      when: is_sdkman_installed.stdout == "no"

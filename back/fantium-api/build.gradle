@@ -1,0 +1,62 @@
+plugins {
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("io.micronaut.application") version "3.4.1"
+}
+
+version = "0.1"
+group = "com.fantium"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor("io.micronaut:micronaut-http-validation")
+    annotationProcessor("io.micronaut.security:micronaut-security-annotations")
+    annotationProcessor("io.micronaut.data:micronaut-data-processor")
+
+    implementation("javax.persistence:javax.persistence-api:2.2")
+
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut:micronaut-jackson-databind")
+    implementation("jakarta.annotation:jakarta.annotation-api")
+    implementation("io.micronaut.reactor:micronaut-reactor")
+    implementation("io.micronaut.data:micronaut-data-jdbc:3.8.0")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+
+
+    runtimeOnly("ch.qos.logback:logback-classic")
+    implementation("io.micronaut:micronaut-validation")
+    implementation("io.micronaut.security:micronaut-security-jwt")
+
+
+    implementation("org.web3j:crypto:5.0.0")
+    implementation("org.web3j:utils:5.0.0")
+
+    implementation("io.micronaut.kafka:micronaut-kafka")
+
+	compileOnly 'org.projectlombok:lombok:1.18.24'
+
+    runtimeOnly "org.postgresql:postgresql:42.2.13"
+
+}
+
+
+application {
+    mainClass.set("com.fantium.Application")
+}
+java {
+    sourceCompatibility = JavaVersion.toVersion("17")
+    targetCompatibility = JavaVersion.toVersion("17")
+}
+
+graalvmNative.toolchainDetection = false
+micronaut {
+    runtime("netty")
+    testRuntime("junit5")
+    processing {
+        incremental(true)
+        annotations("com.fantium.*")
+    }
+}
