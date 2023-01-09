@@ -1,4 +1,5 @@
-# fantium
+# FANtium Platform
+
 Fantium Code Challenge
 
 Welcome to my solution for the Fantium Code Challenge!
@@ -8,6 +9,6 @@ In order to access the application you'll need to have metamask installed in you
 
 This platform consists of 4 main components:
 
-* Contracts proyect containing the [FantiumMetaToken.sol](./contracts/contracts/FantiumMetaToken.sol) contract, holding all the NFT shares for all Fantium Athletes.
+* [Contracts](https://github.com/olmaygti/fantium/tree/master/contracts) project containing the [FantiumMetaToken.sol](./contracts/contracts/FantiumMetaToken.sol) contract, holding all the NFT shares for all Fantium Athletes.
 
-* [Fantium API](https://github.com/olmaygti/fantium/tree/master/back/fantium-api): 
+* [Fantium API](https://github.com/olmaygti/fantium/tree/master/back/fantium-api) offering a thin layer of services to our clients.

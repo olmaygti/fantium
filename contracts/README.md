@@ -1,3 +1,5 @@
+# FANtium Contracts
+
 Welcome to the Solidity Contracts repository for the Fantium Code challenge.
 
 There are some discrepancies with the original challenge specs:
