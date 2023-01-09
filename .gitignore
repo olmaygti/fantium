@@ -7,7 +7,6 @@ dist/
 *.gz
 *.class
 .gradle
-**.env
 **.serverless
 coverage/
 .idea

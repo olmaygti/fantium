@@ -6,6 +6,8 @@ The application is live at [https://fantium-olmaygti.vercel.app](https://fantium
 
 You can import the [contract owner wallet](https://github.com/olmaygti/fantium/blob/ca856374679c1afcdb5799c66c1b00a2873a7f90/contracts/truffle-config.js#L82) to login in the application with administrator privileges.
 
+The contract is deployed in goerli network at [0xc8fC174030C9E3EBb69632FFF4157Be76fa2BCe2](https://goerli.etherscan.io/address/0xc8fC174030C9E3EBb69632FFF4157Be76fa2BCe2).
+
 
 This platform consists of 4 main components:
 
@@ -36,6 +38,7 @@ This platform consists of 4 main components:
 A list of possible tasks to continue on this project:
 
 * **WRITE TESTS**: I'm ashamed of delivering this application without any test, this should get fixed ASAP :)
+* Add UI/Backend handling to allow users to transfer their tokens to other wallets.
 * Complete UI validation: there are forms in the application that contains no validation (new collection Dialog), and other where the logic/feedback could be improved.
 * Review and adjust DB SQL types for efficiency.
 * Add roles (ADMIN/MINTER) and validation in the backend:

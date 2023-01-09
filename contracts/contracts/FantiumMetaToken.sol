@@ -94,7 +94,6 @@ contract FantiumMetaToken is ERC1155, Ownable, ERC1155Supply {
                 require(collections[collectionId].supply == (ids[i] - (collectionId * MAX_TOKENS_PER_COLLECTION)), "Wrong token id sequence");
                 require(isAllowedToMint(collectionId, operator), "Address not allowed to mint new tokens");
 
-
                 string memory tokenInfo = strings.toString(strings.split(s, tokenDelimiter));
 
                 CollectionToken memory tokenDetails  = _newTokenDetails(tokenInfo, ids[i], collectionId);
@@ -132,8 +131,6 @@ contract FantiumMetaToken is ERC1155, Ownable, ERC1155Supply {
         return _tokens[tokenId];
 
     }
-
-
 
     // Customized from OpenZeppelin's ERC1155URIStorage contract
     function uri(uint256 tokenId) public view virtual override returns (string memory) {
