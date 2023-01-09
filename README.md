@@ -1,10 +1,10 @@
 # FANtium Platform
 
-Fantium Code Challenge
-
 Welcome to my solution for the Fantium Code Challenge!
 
-In order to access the application you'll need to have metamask installed in your browser. You can import the [contract owner wallet](https://github.com/olmaygti/fantium/blob/ca856374679c1afcdb5799c66c1b00a2873a7f90/contracts/truffle-config.js#L82) to login in the application with administrator privileges.
+The application is live at [https://fantium-olmaygti.vercel.app](https://fantium-olmaygti.vercel.app/) and in order to access the application you'll need to have metamask installed in your browser.
+
+You can import the [contract owner wallet](https://github.com/olmaygti/fantium/blob/ca856374679c1afcdb5799c66c1b00a2873a7f90/contracts/truffle-config.js#L82) to login in the application with administrator privileges.
 
 
 This platform consists of 4 main components:
@@ -29,3 +29,25 @@ This platform consists of 4 main components:
     * The HAProxy is completely unnecessary at this project's stage, but I love it and use on every project I work on :)
 * The [Kafka broker](https://kafka.apache.org/documentation/) runs in another EC2 instance. This is one machine I had already running for a personal project I'm working on.
 * The postgresql database is run as a service using [AWS RDS](https://aws.amazon.com/rds/?trk=fa2f76d8-422d-4a11-9d8c-b8c8d407fe2f&sc_channel=ps&s_kwcid=AL!4422!3!549068929568!e!!g!!amazon%20relational%20database&ef_id=CjwKCAiAk--dBhABEiwAchIwkcDFJJRP1EuDTHiSJD1vPHhr8ZnzDTnXTU204bdum816oSvTN4gPChoC9AkQAvD_BwE:G:s&s_kwcid=AL!4422!3!549068929568!e!!g!!amazon%20relational%20database).
+
+
+## Discussion:
+
+A list of possible tasks to continue on this project:
+
+* **WRITE TESTS**: I'm ashamed of delivering this application without any test, this should get fixed ASAP :)
+* Complete UI validation: there are forms in the application that contains no validation (new collection Dialog), and other where the logic/feedback could be improved.
+* Review and adjust DB SQL types for efficiency.
+* Add roles (ADMIN/MINTER) and validation in the backend:
+  * Only ADMINs should be able to add/delete collections in the DB.
+  * Only MINTERs should be entitled to upload token assets to IPFS.
+* Remove api keys, secrets, and owner private key from source control.
+  * Yet another thing to be ashamed!.
+  * All this information should be kept elsewhere (I'd choose [KMS](https://aws.amazon.com/es/kms/))
+* Refactor all string literals throughout the codebase and extract them to Enum types or appropiate structure.
+* Listen for wallet disconnections/network changes:
+  * This is only checked in the login screen, if the user changes network while logged in the application is not reacting.
+* Add backend transactions
+  * At least [TokenMintedProcessor](https://github.com/olmaygti/fantium/blob/master/back/fantium-api/src/main/java/com/fantium/events/processors/TokenMintedProcessor.java) performs two database writes that should be transaction.
+  * Scan the codebase for other suitable places to incorporate them.
+* Add an i18n library and remove harcoded english messages in the UI.
