@@ -12,3 +12,5 @@ This platform consists of 4 main components:
 * [Contracts](https://github.com/olmaygti/fantium/tree/master/contracts) project containing the [FantiumMetaToken.sol](./contracts/contracts/FantiumMetaToken.sol) contract, holding all the NFT shares for all Fantium Athletes.
 
 * [Fantium API](https://github.com/olmaygti/fantium/tree/master/back/fantium-api) offering a thin layer of services to our clients.
+
+* [Fantium UI](https://github.com/olmaygti/fantium/tree/master/front): simple UI for admins/minters to manage Athletes collections.
