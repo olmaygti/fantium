@@ -1,14 +1,27 @@
 const Web3 = require('web3');
+const { EventEmitter } = require('events');
 
 const tokenContractAbi = require('../../abis/fantiumToken.json');
 
-class Web3Service {
-	constructor(wsConnection) {
-		const provider = wsConnection
-			? new Web3.providers.WebsocketProvider(process.env.RPC_URL)
-			: new Web3.providers.HttpProvider(`http://${process.env.RPC_URL}`);
+class Web3Service extends EventEmitter {
+	constructor() {
+		super();
+		this.init();
+	}
 
-		this.web3 = new Web3(provider);
+	init() {
+		this.provider = new Web3.providers.WebsocketProvider(process.env.RPC_URL);
+
+		this.web3 = new Web3(this.provider);
+
+		this.provider.connection.addEventListener('open', () => {
+			console.log('connection stablished');
+		});
+
+		this.provider.connection.addEventListener('close', () => {
+			console.log('connection closed');
+			this.emit('disconnection')
+		});
 	}
 
 

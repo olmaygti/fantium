@@ -54,3 +54,6 @@ A list of possible tasks to continue on this project:
   * At least [TokenMintedProcessor](https://github.com/olmaygti/fantium/blob/master/back/fantium-api/src/main/java/com/fantium/events/processors/TokenMintedProcessor.java) performs two database writes that should be transaction.
   * Scan the codebase for other suitable places to incorporate them.
 * Add an i18n library and remove harcoded english messages in the UI.
+* Add cron jobs to look for missing blockchain events
+  * Query contract status to identify inconsistencies
+  * Query past contract events to access the missing information
